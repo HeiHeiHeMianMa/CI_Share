@@ -48,11 +48,13 @@ def Post():
     dataDic = {'args': args}
     Log("Python request: " + str(dataDic))
     resp = http_post(address, dataDic).decode("utf-8")
-    Log("Python response: " + str(resp))
+    Log("Python response: " + str(resp))    
 
     foo = resp.split(",");
     logPath = foo[0]
     svnVersion = foo[1]
+    
+    ToWXWork(config["wxwStartMG"] + "\nsvn最新版本号: " + svnVersion)
 
 
 def http_post(url, data_dic):
@@ -110,6 +112,5 @@ if __name__ == '__main__':
     Init()
     LoadConfig()
     Post()
-    ToWXWork(config["wxwStartMG"] + "\nsvn最新版本号: " + svnVersion)
     monitor_unity_log('自动打包完成')
     Log('done')
